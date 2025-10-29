@@ -406,26 +406,17 @@ class _QiblaCompassState extends State<QiblaCompass> {
                         startValue: (_qiblaDirection - 10 + 360) % 360,
                         endValue: (_qiblaDirection + 10) % 360,
                         color: Colors.green.withOpacity(0.3),
-                        startWidth: 20,
-                        endWidth: 20,
+                        startWidth: 15, // Reduced width
+                        endWidth: 15,   // Reduced width
                       ),
                     ],
 
                     pointers: <GaugePointer>[
-                      // Qibla direction marker (static)
-                      MarkerPointer(
-                        value: _qiblaDirection,
-                        markerType: MarkerType.triangle,
-                        color: Colors.green,
-                        markerHeight: 20,
-                        markerWidth: 20,
-                        markerOffset: -10,
-                      ),
                       // Current heading needle (rotates with phone)
                       NeedlePointer(
                         value: _currentHeading,
                         needleColor: Colors.red.shade600,
-                        needleLength: 0.75,
+                        needleLength: 0.70, // Reduced length to make more space
                         needleStartWidth: 2,
                         needleEndWidth: 8,
                         knobStyle: KnobStyle(
@@ -436,6 +427,28 @@ class _QiblaCompassState extends State<QiblaCompass> {
                           borderWidth: 3,
                         ),
                         enableAnimation: false,
+                      ),
+                      // Qibla direction marker (static)
+                      MarkerPointer(
+                        value: _qiblaDirection,
+                        markerType: MarkerType.triangle,
+                        color: Colors.green,
+                        markerHeight: 20,
+                        markerWidth: 20,
+                        markerOffset: -5, // Reduced offset to make more space
+                      ),
+                      // Add a custom marker for the Kaaba image
+                      WidgetPointer(
+                        value: _qiblaDirection,
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          child: Image.asset(
+                            'assets/images/kaaba.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        offset: -25, // Reduced offset to make more space
                       ),
                     ],
 
